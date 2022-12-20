@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- <h1 style="font-size: 75px;">Files</h2><br> -->
+
+<style>
+
+
+  button#thrash {
+    background-color: transparent;
+    border: none;
+    float: right;
+  }
+
+  button#thrash:hover {
+    /* background-color: #fb3200; */
+    background-color: #ffffff;
+  }
+
+  a#item:hover {
+    /* display: inline-flex; */
+    background-color: #ffffff;
+    color: rgb(249, 140, 76);
+    border-radius: 25px;
+  }
+
+  input#file-input {
+    box-shadow: 5px 10px;
+    
+    /*üstüste olması icin  display: block;  */
+    /* display: block; */
+    display: block;
+
+    margin-bottom: 5px;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    outline: none;
+
+  }
+
+  input#file-input:hover {
+    background-color: #ffffff;
+    color: chocolate;
+    border-radius: 25px;
+    
+  }
+
+  div#ulFile {
+    width: fit-content;
+    height: fit-content;
+    box-shadow: none;
+    background-color: transparent;
+    margin-bottom: 200px;
+
+    padding: 0px;
+  }
+
+
+  .card-content {
+    
+    display: flex;
+    justify-content: right;
+    width: auto;
+    height: auto;
+
+    background-color: #12D2AC;
+  }
+
+  .button {
+    
+    display: inline block;
+    width: 220px;
+    height: 60px;
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: small;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    line-height: 56px;
+    box-sizing: border-box;
+    border-radius: 50px;
+    background-color: transparent;
+    outline: none;
+  }
+
+  .active {
+    
+    font-size: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: rotate 1.4s ease 0.5s infinite;
+    
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js">
+
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(this).addClass("active");
+    })
+  })
+
+</script>
+<div class="box" id="ulFile">
+  <!-- <div class="card-content" id="ulFile"> -->
+
+  <form method=post enctype=multipart/form-data>
+    <input class="button"  id="file-input" onchange="form.submit()" type=file name=file multiple>
+
+    <!-- <button class="button" id="btnUpload" type="submit">UPLOAD</button> -->
+  </form>
+
+
+  <!-- </div> -->
+</div>
+<!-- dosyasecme -->
+
+
+
+{% for filename in users_dir %}
+
+
+
+<!-- style="width: fit-content; height:fit-content;background-color: #2a9d8f;text-align: right;padding: 3px;"
+  class="button" -->
+{% if filename.rsplit('.', 1)[1].lower() == "pdf" %}
+
+<a id="item" target="_blank" style="font-size: 50px;padding: 10px;"
+  href=http://127.0.0.1:5000/view/{{filename}}>{{filename}}<img src="../static/pdfview.png" alt="hello" height="35"
+    width="35"></a>
+
+<button onclick="return confirm('Are you sure you want to delete this item')" id="thrash"
+  style="border-radius: 25px;"><a href="http://127.0.0.1:5000/delete/{{filename}}"><img src="../static/thrash.png"
+      alt="thrash" height="50" width="50"></a></button>
+{% elif filename.rsplit('.', 1)[1].lower() == "docx" %}
+<a id="item" target="_blank" style="font-size: 50px;padding: 10px;"
+  href=http://127.0.0.1:5000/view/{{filename}}>{{filename}}<img src="../static/docxview.png" alt="hello" height="35"
+    width="35"></a>
+
+<button onclick="return confirm('Are you sure you want to delete this item')" id="thrash"
+  style="border-radius: 25px;"><a href="http://127.0.0.1:5000/delete/{{filename}}"><img src="../static/thrash.png"
+      alt="thrash" height="50" width="50"></a></button>
+
+{% else %}
+<a id="item" target="_blank" style="font-size: 50px;padding: 10px;"
+  href=http://127.0.0.1:5000/view/{{filename}}>{{filename}}<img src="../static/txtview.png" alt="hello" height="35"
+    width="35"></a>
+
+<button onclick="return confirm('Are you sure you want to delete this item')" id="thrash"
+  style="border-radius: 25px;"><a href="http://127.0.0.1:5000/delete/{{filename}}"><img src="../static/thrash.png"
+      alt="thrash" height="50" width="50"></a></button>
+
+{% endif %}
+<hr>
+
+
+
+
+{% endfor %}
+
+{% endblock %}

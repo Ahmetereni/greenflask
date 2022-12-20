@@ -1,0 +1,5 @@
+conda install -c conda-forge poppler
+pip install pdftotext
+restart computer
+calismazsa farkli pdf de dene 
+
